@@ -1,21 +1,41 @@
-
 version: 2
-
-models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
+sources:
+  - name: Olist_big_query
+    schema: Olist_final_project
+    description: raw data from big query 
+    tables:
+      - name: product
+        identifier: products_en
+        description: raw data for product with category and product_id
+        tests:
+          - unique:
+              column_name: product_id
+      - name: customers
+        identifier: customers
+        description: raw data for customer
+        columns:
+          - name: customer_unique_id
+            description: primary key of the table
             tests:
-                - unique
-                - not_null
-
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+              - unique   
+              - not_null
+      - name: geolocation
+        identifier: geolocation_new
+        description: raw data for geolocation
+      - name: order_items
+        identifier: order_items
+        description: raw data for order_items
+      - name: payments
+        identifier: order_payments
+        description: raw data for payments
+      - name: orders
+        identifier: orders
+        description: raw data for orders
+      - name: reviews
+        identifier: reviews
+        description: raw data for reviews
+      - name: sellers
+        identifier: sellers
+        description: raw data for selling
+      
+    
