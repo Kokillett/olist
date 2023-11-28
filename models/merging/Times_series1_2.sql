@@ -21,7 +21,9 @@ SELECT
   total_items,
   ROUND((turnover / total_orders),2) AS avg_basket,
   ROUND((turnover / total_items),2) AS avg_ticket,
- ROUND((((turnover - LAG(turnover) OVER(ORDER BY date_date ASC)) / LAG(turnover) OVER(ORDER BY date_date ASC))*100),2) AS turnover_growth_percent
+  ROUND((((turnover - LAG(turnover) OVER(ORDER BY date_date ASC)) / LAG(turnover) OVER(ORDER BY date_date ASC))*100),2) AS turnover_growth_percent,
+  ROUND((((total_orders - LAG(total_orders) OVER (ORDER BY date_date ASC)) / LAG(total_orders) OVER (ORDER BY date_date ASC)) * 100), 2) AS orders_growth_percent
+
 FROM
   int
 ORDER BY date_date
