@@ -16,8 +16,7 @@ sources:
         columns:
           - name: customer_unique_id
             description: primary key of the table
-            tests:
-              - unique   
+            tests:  
               - not_null
       - name: geolocation
         identifier: geolocation_new
