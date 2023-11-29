@@ -14,6 +14,7 @@ int as
 (
   select 
   date_date,
+  time_time,
   SUM(oi.price + oi.freight_value) AS turnover,
   COUNT(DISTINCT o.order_id) AS total_orders,
   COUNT(oi.order_item_id) AS total_items,
@@ -23,11 +24,12 @@ JOIN
   {{ ref('stg_Olist_big_query__order_items') }} AS oi
 ON
   o.order_id = oi.order_id
-group by date_date
+group by date_date, o.time_time
 )
 
 SELECT
   f.date_1,
+    time_time,
   ROUND(turnover,2)as turnover,
   total_orders,
   total_items,

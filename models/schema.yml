@@ -7,6 +7,11 @@ sources:
       - name: product
         identifier: products_en
         description: raw data for product with category and product_id
+        columns:
+          - name: product_id
+            description: unique product identifier
+          - name : product_category_name_english
+            description: root category of product, translated in Enlish
         tests:
           - unique:
               column_name: product_id
@@ -18,23 +23,145 @@ sources:
             description: primary key of the table
             tests:  
               - not_null
+          - name: customer_id
+            description: key to the orders dataset. Each order has a unique customer_i
+          - name : customer_zip_code_prefix
+            description : first five digits of customer zip code
+          - name : customer_city
+            description: customer city name
+          - name: customer_state
+            description : the state that the customer is located
       - name: geolocation
         identifier: geolocation_new
         description: raw data for geolocation
+        columns:
+          - name: geolocation_zip_code_prefix
+            description: first 5 digits of zip code
+          - name: geolocation_city
+            description: the name of the city
+          - name: geolocation_state
+            description: state location name
       - name: order_items
         identifier: order_items
         description: raw data for order_items
+        columns:
+          - name: order_id
+            description: order unique identifier
+          - name: order_item_id
+            description : sequential number identifying number of items included in the same order
+          - name : product_id
+            description: product unique identifier
+          - name : seller_id
+            description: seller unique identifier
+          - name : shipping_limit_date
+            description: Shows the seller shipping limit date for handling the order over to the logistic partner
+          - name: price
+            description: item_price
+          - name : freight_value
+            description: item freight value item (if an order has more than one item the freight value is splitted between items)
       - name: payments
         identifier: order_payments
         description: raw data for payments
+        columns:
+          - name: order_id
+            description: unique identifier of an order.
+          - name : payment_sequential
+            description: a customer may pay an order with more than one payment method. If he does so, a sequence will be created to
+          - name: payment_type
+            description: method of payment chosen by the customer.
+          - name : payment_installments
+            description: number of installments chosen by the customer.
+          - name : payment_value
+            description: transaction value.
       - name: orders
         identifier: orders
         description: raw data for orders
+        tests:
+          - unique:
+              column_name: order_id
+        columns:
+          - name: order_id
+            description: unique identifier of the order.
+          - name : customer_id
+            description: key to the customer dataset. Each order has a unique customer_id.
+          - name : order_status
+            description: Reference to the order status (delivered, shipped, etc)
+          - name: order_purchase_timestamp
+            description: Shows the purchase timestamp.
+          - name : order_approved_at
+            description: Shows the payment approval timestamp.
+          - name : order_delivered_carrier_date
+            description: Shows the order posting timestamp. When it was handled to the logistic partner.
+          - name : order_delivered_customer_date
+            description: Shows the actual order delivery date to the customer
+          - name : order_estimated_delivery_date
+            description: Shows the estimated delivery date that was informed to customer at the purchase moment
+
       - name: reviews
         identifier: reviews
         description: raw data for reviews
+        columns:
+          - name: order_id
+            description: unique order identifier
+          - name : review_score
+            description: Note ranging from 1 to 5 given by the customer on a satisfaction survey
       - name: sellers
         identifier: sellers
         description: raw data for selling
+        columns:
+          - name: seller_id
+            description: seller unique identifier
+          - name : seller_zip_code_prefix
+            description: first 5 digits of seller zip code
+          - name : seller_city
+            description: seller city name
+          - name : seller_state
+            description: state location of the seller
+
+models:
+      - name : Times_series1_2
+        description : aggregation of turnover, orders and items by date
+        columns:
+          - name: date_date
+            description: YYYY-MM-DD
+          - name: turnover
+            description : sum of price and freight values
+          - name : total_orders
+            description: count distinct of order_id
+          - name : total_items
+            description: count of order_item_id
+          - name : avg_basket
+            description: turnover / total_orders
+          - name : avg_unit_price 
+            description: turnover/ total_items
+          - name : turnover_growth_percent 
+            description : percentage of turnover growth from previous day
+          - name : orders_growth_percent
+            description : percentage of orders growth from previous day
+      - name : Create_date_date_and_time_time
+        description: create date and time-hour columns using column order_purchase_timestamp from order table
+        columns:
+          - name : order_id
+            description: unique identifier of the order
+          - name : customer_id
+            description: key to the customer dataset. Each order has a unique customer_id
+          - name : order_status
+            description: Reference to the order status (delivered, shipped, etc)
+          - name : order_purchase_timestamp
+            description: Shows the purchase timestamp
+          - name : order_approved_at
+            description : Shows the payment approval timestamp
+          - name : order_delivered_carrier_date
+            description: Shows the order posting timestamp. When it was handled to the logistic partner.
+          - name : order_delivered_customer_date
+            description: Shows the actual order delivery date to the customer
+          - name : order_estimated_delivery_date
+            description: Shows the estimated delivery date that was informed to customer at the purchase moment
+          - name: date_date
+            description: date of the table YYYY-MM-DD
+          - name: time_time
+            description: hour of the day
+          
+
       
     
