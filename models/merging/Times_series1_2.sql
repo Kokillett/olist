@@ -95,6 +95,7 @@ SELECT
     ,int_5.payment_value
     ,int_5.seller_id
     ,int_5.review_score
+    ,int_5.turnover
     ,int_5.total_orders
     ,int_5.total_items
     ,int_5.avg_basket
