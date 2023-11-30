@@ -99,6 +99,5 @@ SELECT
     ,int_5.total_items
     ,int_5.avg_basket
     ,int_5.avg_unit_price
-    ,int_5.turnover_growth_percent
-    ,int_5.orders_growth_percent
+    ,int_5.turnover
 FROM int_5
