@@ -100,4 +100,13 @@ SELECT
     ,int_5.total_items
     ,int_5.avg_basket
     ,int_5.avg_unit_price
+    ,CASE int_5.review_score
+    WHEN '5' THEN 'promoters'
+    WHEN '4' THEN 'passive'
+    WHEN '3' THEN 'detractors'
+    WHEN '2' THEN 'detractors'
+    WHEN '1' THEN 'detractors'
+    WHEN '0' THEN 'detractors'
+    ELSE 'not_working'
+END AS NPS_score
 FROM int_5
