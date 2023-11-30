@@ -100,5 +100,4 @@ SELECT
     ,int_5.total_items
     ,int_5.avg_basket
     ,int_5.avg_unit_price
-    ,int_5.turnover
 FROM int_5
