@@ -1,5 +1,3 @@
-{{ config(materialized='best_sellers') }}
-
 SELECT
     date_1
     ,order_id
