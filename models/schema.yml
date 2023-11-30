@@ -96,7 +96,6 @@ sources:
             description: Shows the actual order delivery date to the customer
           - name : order_estimated_delivery_date
             description: Shows the estimated delivery date that was informed to customer at the purchase moment
-
       - name: reviews
         identifier: reviews
         description: raw data for reviews
@@ -117,7 +116,13 @@ sources:
             description: seller city name
           - name : seller_state
             description: state location of the seller
-
+      - name: turnover_map
+        identifier: turnover_map
+        description: data to create the map of Olist presence in Brazil by turnover
+        columns:
+          - name: turnover
+            description: turnover of Olist 
+            
 models:
       - name : Times_series1_2
         description : aggregation of turnover, orders and items by date
