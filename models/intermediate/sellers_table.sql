@@ -7,4 +7,4 @@ SELECT
     ,payment_value
     ,seller_id
     ,review_score
-FROM {{ ref('Times_series1_2') }}
+FROM {{ ref('CentralizedData') }}

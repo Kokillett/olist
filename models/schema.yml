@@ -124,7 +124,7 @@ sources:
             description: turnover of Olist 
             
 models:
-      - name : Times_series1_2
+      - name : CentralizedData
         description : aggregation of turnover, orders and items by date
         columns:
           - name: date_date
