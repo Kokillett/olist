@@ -126,5 +126,6 @@ END AS detractors
 END AS Repartition_review
 ,int_5.total_orders * int_5.avg_basket AS gmv
 FROM int_5
+where date_1 is not NULL
 
 
