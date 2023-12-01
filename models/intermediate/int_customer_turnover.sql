@@ -10,4 +10,4 @@ cust.customer_id
 
 FROM {{ ref('CentralizedData') }} AS CD
 JOIN {{ ref('stg_Olist_big_query__customers') }} cust
-using(customer_state)
+using(customer_id)

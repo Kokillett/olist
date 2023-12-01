@@ -14,6 +14,7 @@ int AS
 SELECT
   date_date
   ,time_time
+  ,customer_id
   ,oi.order_id
   ,oi.product_id
   ,oi.seller_id
@@ -26,6 +27,7 @@ ON
   o.order_id = oi.order_id
 GROUP BY 
 date_date
+,customer_id
 ,time_time
 ,oi.order_id
 ,oi.product_id
@@ -36,6 +38,7 @@ int_2 AS
 (
 SELECT
     f.date_1
+    ,customer_id
     ,time_time
     ,order_id
     ,product_id
@@ -86,6 +89,7 @@ USING(order_id)
 SELECT
     int_5.date_1
     ,int_5.time_time
+    ,int_5.customer_id
     ,int_5.order_id
     ,int_5.customer_state
     ,int_5.product_category_name_english
@@ -101,29 +105,18 @@ SELECT
     ,int_5.avg_basket
     ,int_5.avg_unit_price
     /* to calculate the NPS */
-    ,CASE int_5.review_score
-    WHEN '5' THEN 1
-    WHEN '4' THEN 0
-    WHEN '3' THEN 0
-    WHEN '2' THEN 0
-    WHEN '1' THEN 0
-END AS promoters_1,
+,if(int_5.review_score = '5',1,0) as promoters_1 
 
-CASE int_5.review_score
-    WHEN '5' THEN 0
-    WHEN '4' THEN 1
-    WHEN '3' THEN 0
-    WHEN '2' THEN 0
-    WHEN '1' THEN 0
-END AS passive,
+,if(int_5.review_score = '4',1,0) as passive 
 
-CASE int_5.review_score
-    WHEN '5' THEN 0
-    WHEN '4' THEN 0
+,CASE int_5.review_score
+   
     WHEN '3' THEN 1
     WHEN '2' THEN 1
     WHEN '1' THEN 1
-END AS detractors,
-int_5.total_orders * int_5.avg_basket AS gmv
+    else 0
+END AS detractors
+,int_5.total_orders * int_5.avg_basket AS gmv
 FROM int_5
+
 

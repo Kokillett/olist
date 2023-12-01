@@ -183,8 +183,6 @@ models:
             description: Shows the actual order delivery date to the customer
           - name : order_estimated_delivery_date
             description: Shows the estimated delivery date that was informed to customer at the purchase moment
-
-      - name: stg_Olist_big_query__payments
       - name: stg_Olist_big_query__product
       - name: stg_Olist_big_query__reviews
       - name: stg_Olist_big_query__sellers
@@ -326,10 +324,6 @@ models:
           - name : percentage_of_reviews
             description: percentage of review by seller_id for group by review_score
       - name : sellers_customers_states
-/*deleted_staging_Olist_big_query
-  sellers
-  payments
-  geolocation
               
     
     
