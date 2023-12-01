@@ -6,4 +6,4 @@ from {{ ref('int_customer_turnover') }}
 GROUP BY 
 customer_id
 ,seller_id
-ORDER BY count_order desc
+ORDER BY count_order DESC

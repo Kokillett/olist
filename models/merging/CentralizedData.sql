@@ -5,7 +5,7 @@ FROM
     UNNEST(
         GENERATE_DATE_ARRAY(
             '2016-09-04',
-            '2018-09-03',
+            '2018-08-31',
             INTERVAL 1 DAY)
     ) AS date_1),
 
