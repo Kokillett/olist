@@ -115,7 +115,15 @@ SELECT
     WHEN '2' THEN 1
     WHEN '1' THEN 1
     else 0
-END AS detractors
+END AS detractors,
+CASE int_5.review_score
+    WHEN '4' then 'Promoters'
+    WHEN '4' then 'Passive'
+    WHEN '3' THEN 'Detractors'
+    WHEN '2' THEN 'Detractors'
+    WHEN '1' THEN 'Detractors'
+    else ''
+END AS Repartition_review, 
 ,int_5.total_orders * int_5.avg_basket AS gmv
 FROM int_5
 
