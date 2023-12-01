@@ -122,8 +122,55 @@ sources:
         columns:
           - name: turnover
             description: turnover of Olist 
-            
+
+      
 models:
+      - name: stg_Olist_big_query__customers
+        description: staging data for customer
+        columns:
+          - name: customer_unique_id
+            description: primary key of the table
+          - name: customer_id
+            description: key to the orders dataset. Each order has a unique customer_id
+          - name : customer_zip_code_prefix
+            description : first five digits of customer zip code
+          - name : customer_city
+            description: customer city name
+          - name: customer_state
+            description : the state that the customer is located
+      - name: stg_Olist_big_query__geolocation
+        description: staging data for geolocation
+        columns:
+          - name: geolocation_zip_code_prefix
+            description: first 5 digits of zip code
+          - name: geolocation_city
+            description: the name of the city
+          - name: geolocation_state
+            description: state location name
+      - name: stg_Olist_big_query__order_items
+        description:  staging data for order_items
+        columns:
+          - name: order_id
+            description: order unique identifier
+          - name: order_item_id
+            description : sequential number identifying number of items included in the same order
+          - name : product_id
+            description: product unique identifier
+          - name : seller_id
+            description: seller unique identifier
+          - name : shipping_limit_date
+            description: Shows the seller shipping limit date for handling the order over to the logistic partner
+          - name: price
+            description: item_price
+          - name : freight_value
+            description: item freight value item (if an order has more than one item the freight value is splitted between items)
+      - name: stg_Olist_big_query__orders
+      - name: stg_Olist_big_query__payments
+      - name: stg_Olist_big_query__product
+      - name: stg_Olist_big_query__reviews
+      - name: stg_Olist_big_query__sellers
+      - name : stg_Olist_big_query__turnover_map
+      
       - name : CentralizedData
         description : aggregation of turnover, orders and items by date
         columns:
@@ -259,6 +306,8 @@ models:
             description: number of reviews by seller_id
           - name : percentage_of_reviews
             description: percentage of review by seller_id for group by review_score
+      - name : sellers_customers_states
+
               
     
     
