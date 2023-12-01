@@ -121,7 +121,7 @@ sources:
         description: data to create the map of Olist presence in Brazil by turnover
         columns:
           - name: turnover
-            description: turnover of Olist 
+            description: turnover of Olist
 
       
 models:
