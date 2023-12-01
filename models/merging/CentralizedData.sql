@@ -123,5 +123,7 @@ CASE int_5.review_score
     WHEN '3' THEN 1
     WHEN '2' THEN 1
     WHEN '1' THEN 1
-END AS detractors
+END AS detractors,
+int_5.total_orders * int_5.avg_basket AS gmv
 FROM int_5
+
