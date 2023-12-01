@@ -307,7 +307,10 @@ models:
           - name : percentage_of_reviews
             description: percentage of review by seller_id for group by review_score
       - name : sellers_customers_states
-
+/*deleted_staging_Olist_big_query
+  sellers
+  payments
+  geolocation
               
     
     
