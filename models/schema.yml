@@ -44,6 +44,9 @@ sources:
       - name: order_items
         identifier: order_items
         description: raw data for order_items
+        tests:
+          - unique:
+                column_name: "(order_id || '-' || order_item_id)"
         columns:
           - name: order_id
             description: order unique identifier
@@ -169,6 +172,8 @@ models:
         columns:
           - name: order_id
             description: unique identifier of the order.
+            tests:
+              - unique
           - name : customer_id
             description: key to the customer dataset. Each order has a unique customer_id.
           - name : order_status
@@ -191,7 +196,7 @@ models:
       - name : CentralizedData
         description : aggregation of turnover, orders and items by date
         columns:
-          - name: date_date
+          - name: date_1
             description: YYYY-MM-DD
           - name: turnover
             description : sum of price and freight values
@@ -212,6 +217,8 @@ models:
         columns:
           - name : order_id
             description: unique identifier of the order
+            tests:
+              - unique
           - name : customer_id
             description: key to the customer dataset. Each order has a unique customer_id
           - name : order_status

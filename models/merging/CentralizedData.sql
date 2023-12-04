@@ -24,6 +24,8 @@ SELECT
   ,ROUND(SUM(oi.price + oi.freight_value),2) AS turnover
   ,COUNT(DISTINCT oi.order_id) AS total_number_orders
   ,COUNT(oi.order_item_id) AS total_number_items
+/*in the table order_items, order_id column is not unique since it can have multiple items  */
+/* here the unique identifier become  "(order_id || '-' || items_per_order)" */
  FROM {{ ref('Create_date_date_and_time_time') }} AS o
 JOIN {{ ref('stg_Olist_big_query__order_items') }} AS oi
 ON
@@ -91,6 +93,15 @@ SELECT
     ,int_5.item_price
     ,int_5.shipping_revenue
     ,int_5.payment_type
+    /* rename value of payment type*/
+    , CASE int_5.payment_type
+        WHEN 'credit_card' THEN 'Credit card'
+        WHEN 'voucher' THEN 'Voucher'
+        WHEN 'boleto' THEN 'Boleto'
+        When 'debit_card' THEN 'Debit card'
+        else payment_type
+    END AS payment_type_rename
+    
     ,int_5.payment_installments
     ,int_5.payment_value
     ,int_5.seller_id
