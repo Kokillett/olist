@@ -4,13 +4,14 @@ SELECT
 FROM
     UNNEST(
         GENERATE_DATE_ARRAY(
-            '2016-09-04',
+            '2017-01-01',
             '2018-08-31',
             INTERVAL 1 DAY)
     ) AS date_1),
 
-int AS 
+int_1 AS 
 (
+/* have unique value : ,count(concat(oi.order_item_id, oi.order_id)) as test_unique*/
 SELECT
   date_date
   ,time_time
@@ -38,13 +39,15 @@ date_date
 ,oi.product_id
 ,oi.seller_id
 ,order_item_id
+ORDER BY date_date
 ),
 
 int_2 AS
 (
+    /* primary key : items_per_order, order_id ,date_1*/
 SELECT
    *
-FROM int as d
+FROM int_1 as d
 FULL OUTER JOIN calendar as f
 on d.date_date = f.date_1
 ORDER BY f.date_1
@@ -81,6 +84,8 @@ JOIN {{ ref('stg_Olist_big_query__reviews') }}
 USING(order_id)
 )
 
+
+
 SELECT
     int_5.date_1
     ,int_5.time_time
@@ -93,7 +98,7 @@ SELECT
     ,int_5.item_price
     ,int_5.shipping_revenue
     ,int_5.payment_type
-    /* rename value of payment type*/
+    /*rename value of payment type*/
     , CASE int_5.payment_type
         WHEN 'credit_card' THEN 'Credit card'
         WHEN 'voucher' THEN 'Voucher'
@@ -101,7 +106,7 @@ SELECT
         When 'debit_card' THEN 'Debit card'
         else payment_type
     END AS payment_type_rename
-    
+
     ,int_5.payment_installments
     ,int_5.payment_value
     ,int_5.seller_id
@@ -130,6 +135,6 @@ END AS detractors
     else ''
 END AS Repartition_review
 FROM int_5
-where date_1 is not NULL
+where date_1 is not NULL 
 
 
