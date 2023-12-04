@@ -62,7 +62,7 @@ USING(product_id)
 
 int_4 AS
 (
-    /* pas de primary key pour turnover_map*/
+    /* no primary key for turnover_map*/
 SELECT 
 int_3.*
 ,customer_state
