@@ -55,6 +55,7 @@ ORDER BY f.date_1
 
 int_3 AS
 (
+    /*primary key : items_per_order, order_id ,date_1*/
 SELECT 
 *
 FROM int_2
@@ -64,6 +65,7 @@ USING(product_id)
 
 int_4 AS
 (
+    /* pas de primary key pour turnover_map*/
 SELECT 
 int_3.*
 ,customer_state
@@ -83,8 +85,6 @@ FROM int_4
 JOIN {{ ref('stg_Olist_big_query__reviews') }}
 USING(order_id)
 )
-
-
 
 SELECT
     int_5.date_1
@@ -114,7 +114,7 @@ SELECT
     ,int_5.turnover
     ,int_5.total_number_orders
     ,int_5.total_number_items
-    /* to calculate the NPS */
+     /*to calculate the NPS */
 ,if(int_5.review_score = '5',1,0) as promoters_1 
 
 ,if(int_5.review_score = '4',1,0) as passive 
