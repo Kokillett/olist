@@ -19,12 +19,10 @@ SELECT
   ,oi.order_id
   ,oi.product_id
   ,oi.seller_id
-  ,oi.order_item_id AS items_per_order
   ,ROUND(SUM(oi.price),2) AS item_price
   ,ROUND(SUM(oi.freight_value),2) AS shipping_revenue
-  ,ROUND(SUM(oi.price + oi.freight_value),2) AS turnover
+  ,ROUND(SUM((oi.price * oi.occurrence_count)+oi.freight_value),2) AS turnover
   ,COUNT(DISTINCT oi.order_id) AS total_number_orders
-  ,COUNT(oi.order_item_id) AS total_number_items
 /*in the table order_items, order_id column is not unique since it can have multiple items  */
 /* here the unique identifier become  "(order_id || '-' || items_per_order)" */
  FROM {{ ref('Create_date_date_and_time_time') }} AS o
@@ -38,7 +36,6 @@ date_date
 ,oi.order_id
 ,oi.product_id
 ,oi.seller_id
-,order_item_id
 ORDER BY date_date
 ),
 
@@ -94,7 +91,6 @@ SELECT
     ,int_5.customer_state
     ,int_5.product_category_name_english
     ,int_5.product_id
-    ,int_5.items_per_order
     ,int_5.item_price
     ,int_5.shipping_revenue
     ,int_5.payment_type
@@ -113,7 +109,6 @@ SELECT
     ,int_5.review_score
     ,int_5.turnover
     ,int_5.total_number_orders
-    ,int_5.total_number_items
      /*to calculate the NPS */
 ,if(int_5.review_score = '5',1,0) as promoters_1 
 
