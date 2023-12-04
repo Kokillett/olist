@@ -155,8 +155,6 @@ models:
         columns:
           - name: order_id
             description: order unique identifier
-          - name: order_item_id
-            description : sequential number identifying number of items included in the same order
           - name : product_id
             description: product unique identifier
           - name : seller_id
@@ -199,11 +197,11 @@ models:
           - name: date_1
             description: YYYY-MM-DD
           - name: turnover
-            description : sum of price and freight values
+            description : sum of (price*occurrence_count) +  freight_values
+          - name: occurrence_count
+            description: number_of_times order_id, product_id,seller_id,shipping_limit_date,price, and freight_values are the same from staging order_item_id
           - name : total_orders
             description: count distinct of order_id
-          - name : total_items
-            description: count of order_item_id
           - name : avg_basket
             description: turnover / total_orders
           - name : avg_unit_price 
