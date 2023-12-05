@@ -1,4 +1,5 @@
 SELECT *,
+
 DATE(EXTRACT(YEAR FROM order_purchase_timestamp)
 , EXTRACT(MONTH FROM order_purchase_timestamp)
 , EXTRACT(DAY FROM order_purchase_timestamp)) AS date_date
