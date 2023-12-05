@@ -131,5 +131,3 @@ END AS detractors
 END AS Repartition_review
 FROM int_5
 where date_1 is not NULL 
-
-
