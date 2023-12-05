@@ -6,7 +6,7 @@ WITH CustomerMonthsCTE AS (
   FROM {{ ref('CentralizedData') }}
   WHERE DATE(date_1) BETWEEN '2018-03-01' AND '2018-08-31'
   GROUP BY customer_id
-),
+)
 
 SELECT
   COUNT(DISTINCT CASE WHEN period_1 = 1 AND period_2 = 1 THEN customer_id END) AS loyal_counts,
